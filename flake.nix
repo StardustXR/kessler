@@ -21,7 +21,7 @@
     packages = forAllSystems (system: let pkgs = nixpkgsFor.${system}; in {
       default = crane.lib.${system}.buildPackage {
         src = crane.lib.${system}.cleanCargoSource (crane.lib.${system}.path ./.);
-        # buildInputs = with pkgs; [];
+        buildInputs = with pkgs; [];
       };
     });
 
