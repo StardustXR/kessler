@@ -28,7 +28,7 @@ fn make_graph<'repo>(
     Ok(revwalk
         .filter_map(Result::ok)
         .filter_map(|m| repo.find_commit(m).ok())
-        .map(|c| (c.id(), Commit::from_raw(commit, spatial)))
+        .map(|c| (c.id(), Commit::from_raw(c, spatial)))
         .collect())
 }
 
@@ -72,7 +72,13 @@ impl RepoTree {
                     if commit.raw.id() == other_commit.raw.id() {
                         continue;
                     }
-                    if commit.raw.parents().map(|p| p.id()).find(commit.raw.id()) {
+                    if commit
+                        .raw
+                        .parents()
+                        .map(|p| p.id())
+                        .find(commit.raw.id())
+                        .is_some()
+                    {
                         continue;
                     }
 

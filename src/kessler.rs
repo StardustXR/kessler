@@ -1,17 +1,17 @@
-use crate::{repo::RepoTree, Args};
+use crate::Args;
 use color_eyre::eyre::Result;
 use send_wrapper::SendWrapper;
 use stardust_xr_fusion::{
-    client::{Client, ClientState, FrameInfo, RootHandler},
+    client::Client,
     core::values::ResourceID,
     drawable::{Model, ModelPart},
-    node::NodeType,
+    node::{MethodResult, NodeType},
+    root::{ClientState, FrameInfo, RootHandler},
     spatial::{Spatial, Transform},
 };
 
 pub struct Kessler {
-    root: Spatial,
-    repo: SendWrapper<RepoTree>,
+    // repo: SendWrapper<RepoTree>,
     pot_model: Model,
     pot_root: ModelPart,
 }
@@ -22,10 +22,9 @@ impl Kessler {
             Transform::identity(),
             &ResourceID::new_namespaced("kessler", "pot"),
         )?;
-        let pot_root = pot_model.model_part("Root")?;
+        let pot_root = pot_model.part("Root")?;
         Ok(Kessler {
-            root: client.get_root().alias(),
-            repo: SendWrapper::new(RepoTree::create(&pot_root, args)?),
+            // repo: SendWrapper::new(RepoTree::create(&pot_root, args)?),
             pot_model,
             pot_root,
         })
@@ -33,7 +32,7 @@ impl Kessler {
 }
 impl RootHandler for Kessler {
     fn frame(&mut self, _info: FrameInfo) {}
-    fn save_state(&mut self) -> ClientState {
-        ClientState::from_root(&self.root)
+    fn save_state(&mut self) -> MethodResult<ClientState> {
+        Ok(ClientState::default())
     }
 }

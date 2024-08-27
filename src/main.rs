@@ -1,10 +1,10 @@
 mod kessler;
 use crate::kessler::Kessler;
-pub mod repo;
+// pub mod repo;
 
 use clap::Parser;
 use color_eyre::eyre::Result;
-use stardust_xr_fusion::client::Client;
+use stardust_xr_fusion::{client::Client, node::NodeType, root::RootAspect};
 use std::path::PathBuf;
 
 #[derive(Clone, Parser)]
@@ -22,7 +22,10 @@ async fn main() -> Result<()> {
         .expect("Couldn't connect");
     client.set_base_prefixes(&[manifest_dir_macros::directory_relative_path!("res")]);
 
-    let _root = client.wrap_root(Kessler::new(&client, args)?)?;
+    let _root = client
+        .get_root()
+        .alias()
+        .wrap(Kessler::new(&client, args)?)?;
 
     tokio::select! {
         biased;
