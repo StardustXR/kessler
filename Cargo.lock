@@ -84,6 +84,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "asteroids"
+version = "2.0.0"
+source = "git+https://github.com/StardustXR/asteroids.git?branch=dev#16893b688332159cb0251b03667e1361644a81cb"
+dependencies = [
+ "derive-where",
+ "derive_setters",
+ "glam 0.28.0",
+ "input-event-codes",
+ "lazy_static",
+ "manifest-dir-macros",
+ "mint",
+ "rustc-hash 2.0.0",
+ "serde",
+ "stardust-xr-fusion",
+ "stardust-xr-molecules 0.45.0 (git+https://github.com/StardustXR/molecules.git?branch=main)",
+ "tokio",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "async-broadcast"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -450,6 +470,64 @@ dependencies = [
 ]
 
 [[package]]
+name = "darling"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6f63b86c8a8826a49b8c21f08a2d07338eec8d900540f8630dc76284be802989"
+dependencies = [
+ "darling_core",
+ "darling_macro",
+]
+
+[[package]]
+name = "darling_core"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95133861a8032aaea082871032f5815eb9e98cef03fa916ab4500513994df9e5"
+dependencies = [
+ "fnv",
+ "ident_case",
+ "proc-macro2",
+ "quote",
+ "strsim",
+ "syn 2.0.76",
+]
+
+[[package]]
+name = "darling_macro"
+version = "0.20.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d336a2a514f6ccccaa3e09b02d41d35330c07ddf03a62165fcec10bb561c7806"
+dependencies = [
+ "darling_core",
+ "quote",
+ "syn 2.0.76",
+]
+
+[[package]]
+name = "derive-where"
+version = "1.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "62d671cc41a825ebabc75757b62d3d168c577f9149b2d49ece1dad1f72119d25"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.76",
+]
+
+[[package]]
+name = "derive_setters"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4e8ef033054e131169b8f0f9a7af8f5533a9436fadf3c500ed547f730f07090d"
+dependencies = [
+ "darling",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.76",
+]
+
+[[package]]
 name = "digest"
 version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -745,6 +823,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "glam"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "779ae4bf7e8421cf91c0b3b64e7e8b40b862fba4d393f59150042de7c4965a94"
+dependencies = [
+ "mint",
+]
+
+[[package]]
 name = "global_counter"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -797,6 +884,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
+name = "ident_case"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
+
+[[package]]
 name = "idna"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -821,6 +914,12 @@ dependencies = [
  "equivalent",
  "hashbrown",
 ]
+
+[[package]]
+name = "input-event-codes"
+version = "6.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d437b85b6856c30525a380e2de28d630cd2f03b4eec8e8a043d71d7e223792dd"
 
 [[package]]
 name = "instant"
@@ -870,6 +969,7 @@ dependencies = [
 name = "kessler"
 version = "0.1.0"
 dependencies = [
+ "asteroids",
  "clap",
  "color-eyre",
  "git2",
@@ -881,8 +981,8 @@ dependencies = [
  "rustc-hash 1.1.0",
  "send_wrapper",
  "serde",
- "stardust-xr-fusion 0.45.0 (git+https://github.com/StardustXR/core.git)",
- "stardust-xr-molecules",
+ "stardust-xr-fusion",
+ "stardust-xr-molecules 0.45.0 (git+https://github.com/StardustXR/molecules.git?branch=dev)",
  "tokio",
 ]
 
@@ -1110,6 +1210,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "nu-ansi-term"
+version = "0.46.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77a8165726e8236064dbb45459242600304b42a5ea24ee2948e18e023bf7ba84"
+dependencies = [
+ "overload",
+ "winapi",
+]
+
+[[package]]
 name = "num-traits"
 version = "0.2.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1212,6 +1322,12 @@ dependencies = [
  "quote",
  "syn 2.0.76",
 ]
+
+[[package]]
+name = "overload"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 
 [[package]]
 name = "owo-colors"
@@ -1642,27 +1758,7 @@ dependencies = [
  "rustc-hash 2.0.0",
  "serde",
  "shiva-color-rs",
- "stardust-xr-schemas 1.5.3 (git+https://github.com/StardustXR/core.git?branch=dev)",
- "thiserror",
- "tokio",
- "tracing",
-]
-
-[[package]]
-name = "stardust-xr"
-version = "0.45.0"
-source = "git+https://github.com/StardustXR/core.git#207c75c2f00c79a39370846905ac020204f0ff1e"
-dependencies = [
- "cluFlock",
- "dirs",
- "global_counter",
- "mint",
- "nix 0.27.1",
- "parking_lot 0.12.3",
- "rustc-hash 2.0.0",
- "serde",
- "shiva-color-rs",
- "stardust-xr-schemas 1.5.3 (git+https://github.com/StardustXR/core.git)",
+ "stardust-xr-schemas",
  "thiserror",
  "tokio",
  "tracing",
@@ -1680,28 +1776,8 @@ dependencies = [
  "rustc-hash 1.1.0",
  "serde",
  "serde_repr",
- "stardust-xr 0.45.0 (git+https://github.com/StardustXR/core.git?branch=dev)",
- "stardust-xr-fusion-codegen 0.1.0 (git+https://github.com/StardustXR/core.git?branch=dev)",
- "thiserror",
- "tokio",
- "tracing",
- "zbus",
-]
-
-[[package]]
-name = "stardust-xr-fusion"
-version = "0.45.0"
-source = "git+https://github.com/StardustXR/core.git#207c75c2f00c79a39370846905ac020204f0ff1e"
-dependencies = [
- "color-eyre",
- "glam 0.24.2",
- "global_counter",
- "parking_lot 0.12.3",
- "rustc-hash 1.1.0",
- "serde",
- "serde_repr",
- "stardust-xr 0.45.0 (git+https://github.com/StardustXR/core.git)",
- "stardust-xr-fusion-codegen 0.1.0 (git+https://github.com/StardustXR/core.git)",
+ "stardust-xr",
+ "stardust-xr-fusion-codegen",
  "thiserror",
  "tokio",
  "tracing",
@@ -1718,26 +1794,13 @@ dependencies = [
  "proc-macro2",
  "quote",
  "split-iter",
- "stardust-xr-schemas 1.5.3 (git+https://github.com/StardustXR/core.git?branch=dev)",
-]
-
-[[package]]
-name = "stardust-xr-fusion-codegen"
-version = "0.1.0"
-source = "git+https://github.com/StardustXR/core.git#207c75c2f00c79a39370846905ac020204f0ff1e"
-dependencies = [
- "convert_case",
- "mint",
- "proc-macro2",
- "quote",
- "split-iter",
- "stardust-xr-schemas 1.5.3 (git+https://github.com/StardustXR/core.git)",
+ "stardust-xr-schemas",
 ]
 
 [[package]]
 name = "stardust-xr-molecules"
 version = "0.45.0"
-source = "git+https://github.com/StardustXR/molecules.git#c69db9f1bff5087fdcae1c8f1d2d9111e56ec799"
+source = "git+https://github.com/StardustXR/molecules.git?branch=dev#c69db9f1bff5087fdcae1c8f1d2d9111e56ec799"
 dependencies = [
  "glam 0.27.0",
  "lazy_static",
@@ -1745,7 +1808,23 @@ dependencies = [
  "map-range",
  "rustc-hash 1.1.0",
  "serde",
- "stardust-xr-fusion 0.45.0 (git+https://github.com/StardustXR/core.git?branch=dev)",
+ "stardust-xr-fusion",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "stardust-xr-molecules"
+version = "0.45.0"
+source = "git+https://github.com/StardustXR/molecules.git?branch=main#c69db9f1bff5087fdcae1c8f1d2d9111e56ec799"
+dependencies = [
+ "glam 0.27.0",
+ "lazy_static",
+ "lerp",
+ "map-range",
+ "rustc-hash 1.1.0",
+ "serde",
+ "stardust-xr-fusion",
  "tokio",
  "tracing",
 ]
@@ -1754,25 +1833,6 @@ dependencies = [
 name = "stardust-xr-schemas"
 version = "1.5.3"
 source = "git+https://github.com/StardustXR/core.git?branch=dev#c5591c713e85cc2df9c63583fb3026e6c93ccef7"
-dependencies = [
- "flatbuffers",
- "flexbuffers",
- "fnv",
- "futures-util",
- "kdl",
- "manifest-dir-macros",
- "random-string",
- "serde",
- "serde_repr",
- "thiserror",
- "tokio",
- "zbus",
-]
-
-[[package]]
-name = "stardust-xr-schemas"
-version = "1.5.3"
-source = "git+https://github.com/StardustXR/core.git#207c75c2f00c79a39370846905ac020204f0ff1e"
 dependencies = [
  "flatbuffers",
  "flexbuffers",
@@ -1980,14 +2040,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "tracing-log"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee855f1f400bd0e5c02d150ae5de3840039a3f54b025156404e34c23c03f47c3"
+dependencies = [
+ "log",
+ "once_cell",
+ "tracing-core",
+]
+
+[[package]]
 name = "tracing-subscriber"
 version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ad0f048c97dbd9faa9b7df56362b8ebcaa52adb06b498c050d2f4e32f90a7a8b"
 dependencies = [
+ "nu-ansi-term",
  "sharded-slab",
+ "smallvec",
  "thread_local",
  "tracing-core",
+ "tracing-log",
 ]
 
 [[package]]

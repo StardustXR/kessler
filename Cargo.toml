@@ -23,8 +23,12 @@ tokio = { version = "1.32.0", features = ["full"] }
 
 [dependencies.stardust-xr-fusion]
 git = "https://github.com/StardustXR/core.git"
-# path = "../../core/fusion"
+branch = "dev"
 
 [dependencies.stardust-xr-molecules]
 git = "https://github.com/StardustXR/molecules.git"
-# path = "../../molecules"
+branch = "dev"
+
+[dependencies.asteroids]
+git = "https://github.com/StardustXR/asteroids.git"
+branch = "dev"

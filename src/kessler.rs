@@ -11,7 +11,7 @@ use stardust_xr_fusion::{
 };
 
 pub struct Kessler {
-    // repo: SendWrapper<RepoTree>,
+    repo: SendWrapper<RepoTree>,
     pot_model: Model,
     pot_root: ModelPart,
 }
@@ -24,7 +24,7 @@ impl Kessler {
         )?;
         let pot_root = pot_model.part("Root")?;
         Ok(Kessler {
-            // repo: SendWrapper::new(RepoTree::create(&pot_root, args)?),
+            repo: SendWrapper::new(RepoTree::create(&pot_root, args)?),
             pot_model,
             pot_root,
         })

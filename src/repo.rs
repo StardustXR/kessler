@@ -6,9 +6,9 @@ use ouroboros::self_referencing;
 use rand::Rng;
 use rustc_hash::FxHashMap;
 use stardust_xr_fusion::{
-    client::FrameInfo,
     core::values::ResourceID,
     drawable::Model,
+    root::FrameInfo,
     spatial::{Spatial, SpatialAspect, Transform},
 };
 
@@ -28,7 +28,7 @@ fn make_graph<'repo>(
     Ok(revwalk
         .filter_map(Result::ok)
         .filter_map(|m| repo.find_commit(m).ok())
-        .map(|c| (c.id(), Commit::from_raw(c, spatial)))
+        .map(|c| (c.id(), Commit::from_raw(&c, spatial)))
         .collect())
 }
 
@@ -54,49 +54,49 @@ impl RepoTree {
         })?)
     }
     pub fn update(&mut self, frame_info: &FrameInfo) {
-        let ideal_length = self.with_commit_graph(|c| c.len() as f32).sqrt();
-        self.with_commit_graph_mut(|commits| {
-            for commit in commits.values_mut() {
-                let mut force = vec3a(0.0, 0.0, 0.0);
-                for parent in commit.raw.parents() {
-                    let Some(parent) = commits.get_mut(&parent.id()) else {
-                        continue;
-                    };
-                    let d = parent.pos - commit.pos;
-                    let distance = d.length();
-                    let force_magnitude = (ideal_length - distance) / distance;
+        // let ideal_length = self.with_commit_graph(|c| c.len() as f32).sqrt();
+        // self.with_commit_graph_mut(|commits| {
+        //     for commit in commits.values_mut() {
+        //         let mut force = vec3a(0.0, 0.0, 0.0);
+        //         for parent in commit.raw.parents() {
+        //             let Some(parent) = commits.get_mut(&parent.id()) else {
+        //                 continue;
+        //             };
+        //             let d = parent.pos - commit.pos;
+        //             let distance = d.length();
+        //             let force_magnitude = (ideal_length - distance) / distance;
 
-                    force += d * force_magnitude;
-                }
-                for other_commit in commits.values_mut() {
-                    if commit.raw.id() == other_commit.raw.id() {
-                        continue;
-                    }
-                    if commit
-                        .raw
-                        .parents()
-                        .map(|p| p.id())
-                        .find(commit.raw.id())
-                        .is_some()
-                    {
-                        continue;
-                    }
+        //             force += d * force_magnitude;
+        //         }
+        //         for other_commit in commits.values_mut() {
+        //             if commit.raw.id() == other_commit.raw.id() {
+        //                 continue;
+        //             }
+        //             if commit
+        //                 .raw
+        //                 .parents()
+        //                 .map(|p| p.id())
+        //                 .find(|p| p == &commit.raw.id())
+        //                 .is_some()
+        //             {
+        //                 continue;
+        //             }
 
-                    let d = other_commit.pos - commit.pos;
-                    let distance = d.length();
-                    let force_magnitude = 1.0 / distance;
+        //             let d = other_commit.pos - commit.pos;
+        //             let distance = d.length();
+        //             let force_magnitude = 1.0 / distance;
 
-                    force += force_magnitude * d / distance;
-                }
-                commit.pos += force;
-                if force.length_squared() > f32::EPSILON {
-                    commit
-                        .root
-                        .set_local_transform(Transform::from_translation(commit.pos))
-                        .unwrap();
-                }
-            }
-        });
+        //             force += force_magnitude * d / distance;
+        //         }
+        //         commit.pos += force;
+        //         if force.length_squared() > f32::EPSILON {
+        //             commit
+        //                 .root
+        //                 .set_local_transform(Transform::from_translation(commit.pos))
+        //                 .unwrap();
+        //         }
+        //     }
+        // });
     }
 }
 
@@ -115,7 +115,7 @@ impl<'repo> Commit<'repo> {
     fn from_raw(commit: &git2::Commit<'repo>, spatial: &impl SpatialAspect) -> Self {
         let root = Spatial::create(spatial, Transform::identity(), false).unwrap();
         Commit {
-            raw: c.clone(),
+            raw: commit.clone(),
             // initialize the position randomly for the force directed graph
             pos: vec3a(
                 rand::thread_rng().gen(),
